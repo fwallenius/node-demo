@@ -1,0 +1,32 @@
+body {
+	background-color: #FFD473;
+	
+}
+ 
+#chatMessages {
+	
+}
+
+
+#mainContent {
+	height: 90%;
+	overflow: auto;
+}
+
+#mainContent div {
+	margin-bottom: 3%;
+	padding: 2%;
+	-moz-border-radius: 5% 5%;
+	border-radius: 10px;
+	border: 1px solid #FFB100;
+	background-color: #FFFFFF;
+	height: 300px;
+	font-family: Oswald,sans-serif;
+}
+
+#textInput {
+	border-radius: 10px;
+	padding: 0.75%;
+	font-family: Oswald,sans-serif;
+	font-size: 100%;
+}
