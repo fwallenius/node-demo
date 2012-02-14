@@ -2,10 +2,9 @@
 div#mainContent.container_12
 	
 	div#chatMessages.grid_8
-		span Chat messages
-	div#users.grid_3
-		span Users
-	input#textInput.grid_6
-		span Enter text here
-	button#sendButton.grid_2
-		span Send
+		h4 Chat messages
+	div.grid_3
+		h4 Users
+		ul#users
+	input#textInput.grid_8(placeholder='Enter chat message and press enter to send')
+	input#nameInput.grid_3(placeholder='Enter your name')

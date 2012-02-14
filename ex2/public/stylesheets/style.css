@@ -1,32 +1,40 @@
 body {
 	background-color: #FFD473;
-	
+	font-family: Oswald,sans-serif;
 }
  
-#chatMessages {
-	
+h4 {
+	text-align: center;
+	color: rgba(183, 183, 183, .85);
 }
 
 
+.userName {
+	font-style: italic;
+	font-weight: bolder;
+}
+
 #mainContent {
-	height: 90%;
 	overflow: auto;
 }
 
 #mainContent div {
 	margin-bottom: 3%;
-	padding: 2%;
+	padding: 0 2% 2% 2%;
 	-moz-border-radius: 5% 5%;
 	border-radius: 10px;
 	border: 1px solid #FFB100;
 	background-color: #FFFFFF;
-	height: 300px;
-	font-family: Oswald,sans-serif;
+	height: 350px;
+	overflow: auto;
 }
 
-#textInput {
+#mainContent input {
 	border-radius: 10px;
 	padding: 0.75%;
-	font-family: Oswald,sans-serif;
 	font-size: 100%;
+}
+
+#mainContent p {
+	font-size: 85%;
 }
