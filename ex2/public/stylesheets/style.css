@@ -1,40 +1,43 @@
 body {
-	background-color: #FFD473;
-	font-family: Oswald,sans-serif;
+    background-color: #FFD473;
+    font-family: Oswald,sans-serif;
 }
- 
+
 h4 {
-	text-align: center;
-	color: rgba(183, 183, 183, .85);
+    text-align: center;
+    color: rgba(183, 183, 183, .85);
 }
 
 
 .userName {
-	font-style: italic;
-	font-weight: bolder;
+    font-style: italic;
+    font-weight: bolder;
 }
 
 #mainContent {
-	overflow: auto;
+    overflow: hidden;
 }
 
-#mainContent div {
-	margin-bottom: 3%;
-	padding: 0 2% 2% 2%;
-	-moz-border-radius: 5% 5%;
-	border-radius: 10px;
-	border: 1px solid #FFB100;
-	background-color: #FFFFFF;
-	height: 350px;
-	overflow: auto;
+/*#mainContent div{
+    -moz-border-radius: 5% 5%;
+    border-radius: 10px;
+}*/
+
+.coolDiv {
+/*    margin-bottom: 3%;
+    padding: 0 2% 2% 2%;*/
+    border: 1px solid #FFB100;
+    background-color: #FFFFFF;
+    height: 290px;
+    overflow: auto;
 }
 
 #mainContent input {
-	border-radius: 10px;
-	padding: 0.75%;
-	font-size: 100%;
+/*    border-radius: 10px;*/
+/*    padding: 0.75%;*/
+    font-size: 100%;
 }
 
 #mainContent p {
-	font-size: 85%;
+    font-size: 85%;
 }
