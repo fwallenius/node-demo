@@ -13,7 +13,7 @@ myServer.on('request', function (req, res) {
 	res.end();
 });
 
-myServer.listen(3000, "192.168.1.7");
+myServer.listen(3000, "127.0.0.1");
 
 console.log('Server running at http://192.168.1.7:3000');
 
