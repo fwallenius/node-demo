@@ -34,4 +34,15 @@ app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 
-api.test();
+// Set up socket.io
+var io = require('socket.io').listen(app);  
+
+io.sockets.on('connection', function (socket) {
+
+  console.log('Client connected');
+
+});
+
+api.onUpdate(function(data) {
+  io.sockets.emit('DAXGAINER', data);
+});

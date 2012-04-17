@@ -1,11 +1,14 @@
 
 var CNBC = require('../lib/CNBC'),
-    UPDATEINTERVAL = 5000;
+    UPDATEINTERVAL = 3000,
+    listener = null;
+
+
 
 
 
 exports.test = function() {
-        console.log('Det funkar!');
+
 };
 
 
@@ -15,6 +18,10 @@ exports.getStockQuotes = function() {
 
 exports.getFtseGainers = function() {
     return updater.getFromCache().ftseGainers;
+}
+
+exports.onUpdate = function(callback) {
+    listener = callback;
 }
 
 
@@ -105,7 +112,10 @@ var updater = function() {
     };
 
     function receiveFtseGainers(data) {
-        dataCache.ftseGainers = data;
+        dataCache.ftseGainers = consolidateData(data);
+        if (listener) {
+            listener(dataCache.ftseGainers);
+        }
         countCallbacks();
     };
 
@@ -113,7 +123,7 @@ var updater = function() {
         cbCount = 0;
         startTime = new Date().getTime();
         getMainIndeces(receiveMainIndeces);
-        getGainerLoser('ftse', 'gainer', receiveFtseGainers);
+        getGainerLoser('dax', 'gainer', receiveFtseGainers);
     };
 
     fireCalls();
@@ -125,4 +135,75 @@ var updater = function() {
     }
 
 }();
+
+var consolidateData = function(data) {
+    var smallData = [];
+
+    for (var i = 0; i < data.length; i++) {
+        var info = data[i];
+        info.last = cutDecimals(info.last, 4).substring(0, 6);
+
+        info.change = cutDecimals(info.change, 2);
+        info.change_pct = cutDecimals(info.change_pct, 2);
+
+        // create change string
+        var change;
+
+        // decide if change is neutral, positive, or negative
+        var className = 'change';
+        if ( info.change == 0 ) {
+            className += ' neutral';
+            change = 'UNCH';
+        }
+        if ( info.change > 0 ) {
+            className += ' positive';
+            change = '+' + info.change + ' (+' + info.change_pct + '%)';
+        }
+        if ( info.change < 0 ) {
+            className += ' negative';
+            change = info.change + ' (' + info.change_pct + '%)';
+        }
+
+        smallData.push({
+            label: info.name,
+            last: info.last,
+            change: info.change,
+            change_pct: info.change_pct,
+            change_string: change,
+            change_className: className
+        });
+    }
+
+    smallData.sort(function(el1, el2) {
+        return el2.change_pct - el1.change_pct;
+    });
+
+    return smallData;
+}
+
+
+// trim decimals off of float [value] to [amount] precision
+// pads with zeroes if needed
+// returns a string
+var cutDecimals = function(value, amount) {
+    
+    // cut to amount of decimals
+    var multiple = Math.pow(10, amount);
+    var result = Math.round((value*multiple))/multiple;
+    
+    //// pad with zeroes
+    var str = '' + result;
+    var pos = str.indexOf('.');
+    // if there is no point, add it
+    if ( pos == -1 ) {
+        str += '.';
+        pos = str.indexOf('.');
+    }
+    
+    // length of decimal numbers part (after point)
+    var len = str.substring(pos+1).length;
+    // create zeroes from len to amount
+    str += new Array((amount-len)+1).join('0');
+    return str;
+};
 
